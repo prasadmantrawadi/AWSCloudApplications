@@ -12,9 +12,10 @@
 	<description>Demo project for aws-cloud-operations</description>
 
     <modules>
-        <module>awsgateway</module>
-        <module>doctorservice</module>
+        <module>discoveryservice</module>
+		<module>doctorservice</module>
 		<module>patientservice</module>
+		<module>awsgateway</module>        
     </modules>
 
 </project>
