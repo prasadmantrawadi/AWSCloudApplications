@@ -6,11 +6,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,10 +23,6 @@ public class DoctorController {
 
 	@Autowired
 	RestTemplate rest;
-
-	@Value("${patient.restURL}")
-	String patientServiceURL;
-
 
 	private final static Logger logger = LoggerFactory.getLogger(DoctorController.class);
 
@@ -43,14 +39,14 @@ public class DoctorController {
 
 	@GetMapping("/getPatients")
 	String getPatients(@AuthenticationPrincipal Jwt jwt) {
-		logger.info("Calling Patients service to get details" + patientServiceURL);
+		logger.info("Calling Patients service to get details");
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		headers.set("Authorization", "Bearer "+jwt.getTokenValue());
 		HttpEntity<String> entity = new HttpEntity<String>(headers);
 
-		return rest.exchange(patientServiceURL, HttpMethod.GET, entity, String.class).getBody();
+		return rest.exchange("http://patient/patientservice/patients", HttpMethod.GET, entity, String.class).getBody();
 	}
 	
 

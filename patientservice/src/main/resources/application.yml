@@ -4,12 +4,20 @@ server:
     context-path: /patientservice
 
 spring:
+  application:
+    name: patient
   security:
     oauth2:
       resourceserver:
         jwt:
           issuer-uri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_BK101UtqO
-            
+
+eureka:
+  instance:    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8083/eureka
+                  
 logging:
   level:
     root: INFO

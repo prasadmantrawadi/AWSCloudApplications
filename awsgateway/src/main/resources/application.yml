@@ -5,6 +5,8 @@ security:
       enabled: false
       
 spring:
+  application:
+    name: awsgateway
   autoconfigure:    exclude:      - org.springframework.cloud.aws.autoconfigure.messaging.MessagingAutoConfiguration
       - org.springframework.cloud.aws.autoconfigure.context.ContextStackAutoConfiguration
       - org.springframework.cloud.aws.autoconfigure.context.ContextRegionProviderAutoConfiguration
@@ -25,22 +27,32 @@ spring:
             jwk-set-uri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_BK101UtqO/.well-known/jwks.json
   cloud:
     gateway:
+      discovery:
+        locator:
+          enabled: true
       default-filters:
         - TokenRelay
       routes:
         - id: doctorservice
-          uri: http://localhost:9091/
+          uri: lb://doctor
           predicates:
             - Path=/doctorservice/**
         - id: patientservice
-          uri: http://localhost:9092/
+          uri: lb://patient
           predicates:
             - Path=/patientservice/** 
+
+eureka:
+  instance:    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8083/eureka
+                  
 logging:
   level:
     root: INFO
     org.springframework.web: INFO
-    org.springframework.web.HttpLogging: DEBUG
-    org.springframework.security: DEBUG
-    org.springframework.security.oauth2: DEBUG
-    org.springframework.cloud.gateway: DEBUG
+    org.springframework.web.HttpLogging: INFO
+    org.springframework.security: INFO
+    org.springframework.security.oauth2: INFO
+    org.springframework.cloud.gateway: INFO
