@@ -23,6 +23,7 @@ spring:
         provider:
           cognito:
             authorization-uri: https://prasadgateway.auth.us-east-1.amazoncognito.com/oauth2/authorize
+            token-uri: https://prasadgateway.auth.us-east-1.amazoncognito.com/oauth2/token
             issuer-uri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_BK101UtqO
             jwk-set-uri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_BK101UtqO/.well-known/jwks.json
   cloud:
@@ -47,7 +48,7 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8083/eureka
-                  
+
 logging:
   level:
     root: INFO

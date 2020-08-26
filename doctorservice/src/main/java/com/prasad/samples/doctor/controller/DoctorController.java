@@ -5,8 +5,6 @@ import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -18,6 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
+
 @RestController
 public class DoctorController {
 
@@ -27,6 +29,7 @@ public class DoctorController {
 	private final static Logger logger = LoggerFactory.getLogger(DoctorController.class);
 
 
+	@ApiOperation(value="Description",authorizations = {@Authorization(value= "oauth" )})
 	@GetMapping(value = "/hello/{id}")
 	public String getData(@AuthenticationPrincipal Jwt jwt, @PathVariable("id") String abc) {
 		logger.info("Inside Doctor Service getData method " + abc);
@@ -37,6 +40,7 @@ public class DoctorController {
 				jwt.getClaims().get("username"), jwt.getSubject());
 	}
 
+	@ApiOperation(value="Description",authorizations = {@Authorization(value= "oauth" )})
 	@GetMapping("/getPatients")
 	String getPatients(@AuthenticationPrincipal Jwt jwt) {
 		logger.info("Calling Patients service to get details");
