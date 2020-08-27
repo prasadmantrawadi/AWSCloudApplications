@@ -8,3 +8,4 @@
 6. Netflix Eureka - Discovery service Server and Client
 7. Swagger - API Documentation
 8. Spring Cloud Sleuth - Correlating Logs Between Independent Microservices- Logs traceability
+9. Spring Config - Externalizing properties to central location - back by file system / git repo
