@@ -11,7 +11,12 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_BK101UtqO
-
+  cloud:    config:      uri: http://configserver
+      profile: development
+      username: root
+      password: s3cr3t
+      discovery:        enabled: true
+     
 eureka:
   instance:    prefer-ip-address: true
   client:
@@ -26,7 +31,8 @@ swagger:
           token-url: https://prasadgateway.auth.us-east-1.amazoncognito.com/oauth2/token
           client-id: 5i0nveuj5547f40g077t5gj0e
           client-secret: 1pcku32d3ciel0oteruf9f1dveesc71ji3b1jjoaieiodnrskl2d     
-                            
+
+
 logging:
   level:
     root: INFO

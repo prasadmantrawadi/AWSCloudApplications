@@ -13,6 +13,8 @@
 
     <modules>
         <module>discoveryservice</module>
+		<module>configserver</module>       
+		<module>config-repo</module>  
 		<module>doctorservice</module>
 		<module>patientservice</module>
 		<module>awsgateway</module>        
